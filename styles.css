@@ -1,0 +1,44 @@
+body {
+    font-family: 'Typewriter';
+    background-color: black;
+    color: white;
+}
+
+header{
+    text-align: center;
+    font-size: 24px;
+}
+
+.inventory {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+button {
+    cursor: pointer;
+    font-family: 'Typewriter';
+    font-size: 14px;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    border-radius: 12px;
+    margin: 4px;
+    padding: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.upgrades{
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    margin-bottom: 10px;
+}
+
+.shop {
+    display: none;
+}
+@font-face {
+    font-family: Typewriter;
+    src: url(MonospaceTypewriter.ttf);
+  }
