@@ -38,6 +38,27 @@ $(document).ready(function(){
         
     }
 
+    function saveGame() {
+        var gameSave = {
+            points: points,
+            pointPlus: pointPlus,
+            autoPointPlus: autoPointPlus,
+            increasePointPrice: increasePointPrice,
+            autoPointPrice: autoPointPrice,
+            deathAmount: deathAmount,
+            deathBase: deathBase,
+            deathExponent: deathExponent,
+            deathBoost: deathBoost,
+            deathCriteria: deathCriteria
+        };
+        localStorage.setItem("gameSave", JSON.stringify(gameSave));
+    }
+
+    setInterval(function(){
+        saveGame();
+    }, 60000);
+
+
     $("#autoAdd").click(function(){
         if(points < autoPointPrice){
             return
