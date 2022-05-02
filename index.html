@@ -17,15 +17,16 @@
             <div class="main">
                 <button id="addToPoints">Add</button>
                 <button id="gotoShop">Shop</button>
-                <button onclick="saveGame();">Save</button>
+                <button onclick="saveTheGame();">Save</button>
+                <button onclick="loadTheGame();">Load</button>
             </div>
 
             <div class="shop">
                 
                 <div class="upgrades">
-                    <button id="incAdd">Points/Click (100)</button>
-                    <button id="autoAdd">Auto Click (500)</button>
-                    <button id="die" style="color:red; border-color: red;">Die<br>(10 PPC/AC)</button>
+                    <button id="incAdd">Points/Click (<span id="incAddPrc">100</span>)</button>
+                    <button id="autoAdd">Auto Click (<span id="autoAddPrc">500</span>)</button>
+                    <button id="die" style="color:red; border-color: red;">Die<br>(<span id="deathCrit">10</span> PPC/AC)</button>
                 </div>
                 <button id="return">Back</button>
             </div>
@@ -35,10 +36,10 @@
 
 
         <div class="inventory">
-            <p id="points">You have 0.00 points.</p>
-            <p id="pointsPerClick">You gain 1.00 point per click.</p>
-            <p id="idlePoints">You gain 0.00 points per second.</p>
-            <p id="deathBoost">Your 0 deaths are boosting your progress by 1.00x.</p>
+            <p id="points">You have <span id="pointsValue">0.00</span> <span id="pointsPlural">points</span>.</p>
+            <p id="pointsPerClick">You gain <span id="ppcValue">1.00</span> <span id="ppcPlural">point</span> per click.</p>
+            <p id="idlePoints">You gain <span id="idleValue">0.00</span> <span id="idlePlural">points</span> per second.</p>
+            <p id="deathBoost">Your <span id="deathAmountValue">0</span> <span id="deathPlural">deaths are</span> boosting your progress by <span id="deathBoostValue">1.00</span>x.</p>
         </div>
     </div>
 </body>
