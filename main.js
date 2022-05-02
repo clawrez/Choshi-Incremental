@@ -70,32 +70,32 @@ $(document).ready(function(){
 
     window.onload = function() {
         loadGame();
-        if(points == 1){
-            $("#points").html("You have " + format(gameSave.points) + " point.");
+        if(savedGame.points == 1){
+            $("#points").html("You have " + format(savedGame.points) + " point.");
         }else{
-            $("#points").html("You have " + format(gameSave.points) + " points.");
+            $("#points").html("You have " + format(savedGame.points) + " points.");
         }
 
-        if(autoPointPlus == 1){
-            $("#idlePoints").html("You gain " + format(gameSave.autoPointPlus) + " point per second.");
+        if(savedGame.autoPointPlus == 1){
+            $("#idlePoints").html("You gain " + format(savedGame.autoPointPlus) + " point per second.");
         }else{
-            $("#idlePoints").html("You gain " + format(gameSave.autoPointPlus) + " points per second.");
+            $("#idlePoints").html("You gain " + format(savedGame.autoPointPlus) + " points per second.");
         }
 
-        if(pointPlus == 1){
-            $("#pointsPerClick").html("You gain " + format(gameSave.pointPlus) + " point per click.");
+        if(savedGame.pointPlus == 1){
+            $("#pointsPerClick").html("You gain " + format(savedGame.pointPlus) + " point per click.");
         }else{
-            $("#pointsPerClick").html("You gain " + format(gameSave.pointPlus) + " points per click.");
+            $("#pointsPerClick").html("You gain " + format(savedGame.pointPlus) + " points per click.");
         }
 
-        if(deathAmount == 1){
-            $("#deathBoost").html("Your " + gameSave.deathAmount + " death is boosting your progress by " + format(gameSave.deathBoost) + "x.");
+        if(savedGame.deathAmount == 1){
+            $("#deathBoost").html("Your " + savedGame.deathAmount + " death is boosting your progress by " + format(savedGame.deathBoost) + "x.");
         }else{
-            $("#deathBoost").html("Your " + deathAmount + " deaths are boosting your progress by " + format(gameSave.deathBoost) + "x.");
+            $("#deathBoost").html("Your " + savedGame.deathAmount + " deaths are boosting your progress by " + format(savedGame.deathBoost) + "x.");
         }
-        $("#incAdd").html("Points/Click (" + format(gameSave.increasePointPrice) + ")");
-        $("#autoAdd").html("Auto Click (" + format(gameSave.autoPointPrice) + ")");
-        $("#die").html("Die<br>(" + gameSave.deathCriteria + " PPC/AC)");
+        $("#incAdd").html("Points/Click (" + format(savedGame.increasePointPrice) + ")");
+        $("#autoAdd").html("Auto Click (" + format(savedGame.autoPointPrice) + ")");
+        $("#die").html("Die<br>(" + savedGame.deathCriteria + " PPC/AC)");
     };
 
     setInterval(function(){
