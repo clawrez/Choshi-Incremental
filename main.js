@@ -36,12 +36,6 @@ $(document).ready(function(){
         return mantissa.toFixed(2) + "e" + power;
     }
 
-    setInterval(function(){ //auto clicker
-        points += autoPointPlus;
-        changeInventory();
-        changeMarket();
-    }, 1000);
-
     function saveTheGame(){
         localStorage.setItem("data", JSON.stringify(data));
     }
@@ -49,14 +43,18 @@ $(document).ready(function(){
     function loadTheGame (){
         localStorage.getItem("data")
     }
+    window.onload = loadTheGame;
 
     $("#saveBtn").click(function(){
         saveTheGame();
-    }
-                        
-    document.onload = function {
-        loadTheGame();
-    }
+    });
+                    
+
+    setInterval(function(){ //auto clicker
+        points += autoPointPlus;
+        changeInventory();
+        changeMarket();
+    }, 1000);
     
     function deathPrestige(){ //death (prestige class 1)
         deathAmount++;
