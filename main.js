@@ -43,13 +43,21 @@ $(document).ready(function(){
     }, 1000);
 
     function saveTheGame(){
-        localStorage["data"] = JSON.stringify(data);
+        localStorage.setItem("data", JSON.stringify(data));
     }
 
     function loadTheGame (){
-        data = JSON.parse(localStorage["data"]);
+        localStorage.getItem("data")
     }
 
+    $("#saveBtn").click(function(){
+        saveTheGame();
+    }
+                        
+    document.onload = function {
+        loadTheGame();
+    }
+    
     function deathPrestige(){ //death (prestige class 1)
         deathAmount++;
         deathBase = Math.pow(2, deathAmount);
@@ -157,7 +165,7 @@ $(document).ready(function(){
     document.addEventListener("keydown", function(event) {
         if (event.ctrlKey && event.which == 83) { // ctrl + s
             event.preventDefault();
-               saveGame();
+               saveTheGame();
         }
     }, false);
 });
