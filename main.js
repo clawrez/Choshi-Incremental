@@ -38,6 +38,20 @@ $(document).ready(function(){
         
     }
 
+    function loadGame() {
+        var savedGame = JSON.parse(localStorage.getItem("gameSave"));
+        if (typeof savedGame.points !== "undefined") points = savedGame.points;
+        if (typeof savedGame.pointPlus !== "undefined") pointPlus = savedGame.pointPlus;
+        if (typeof savedGame.autoPointPlus !== "undefined") autoPointPlus = savedGame.autoPointPlus;
+        if (typeof savedGame.increasePointPrice !== "undefined") increasePointPrice = savedGame.increasePointPrice;
+        if (typeof savedGame.autoPointPrice !== "undefined") autoPointPrice = savedGame.autoPointPrice;
+        if (typeof savedGame.deathAmount !== "undefined") deathAmount = savedGame.deathAmount;
+        if (typeof savedGame.deathBase !== "undefined") deathBase = savedGame.deathBase;
+        if (typeof savedGame.deathExponent !== "undefined") deathExponent = savedGame.deathExponent;
+        if (typeof savedGame.deathBoost !== "undefined") deathBoost = savedGame.deathBoost;
+        if (typeof savedGame.deathCriteria !== "undefined") deathCriteria = savedGame.deathCriteria;
+    }
+
     function saveGame() {
         var gameSave = {
             points: points,
@@ -54,9 +68,16 @@ $(document).ready(function(){
         localStorage.setItem("gameSave", JSON.stringify(gameSave));
     }
 
+    window.onload = function() {
+        loadGame();
+        changeInventory();
+        changeMarket();
+    };
+
     setInterval(function(){
         saveGame();
-    }, 60000);
+    }, 30000);
+
 
 
     $("#autoAdd").click(function(){
@@ -142,4 +163,11 @@ $(document).ready(function(){
         $("." + menu).css("display", "block");
         return menu;
     }
+    
+    document.addEventListener("keydown", function(event) {
+        if (event.ctrlKey && event.which == 83) { // ctrl + s
+            event.preventDefault();
+            saveGame();
+        }
+    }, false);
 });
