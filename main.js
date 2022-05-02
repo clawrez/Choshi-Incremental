@@ -1,18 +1,30 @@
 $(document).ready(function(){
+    var points = 0;
+
+    var pointPlus = 1;
+    var autoPointPlus = 0;
+    var increasePointPrice = 100;
+    var autoPointPrice = 500;
+
+    var deathAmount = 0;
+    var deathBase = 1;
+    var deathExponent = 1.2;
+    var deathBoost = 1;
+    var deathCriteria = 10;
 
     var data = {
-    points: 0,
+    points: points,
 
-    pointPlus: 1,
-    autoPointPlus: 0,
-    increasePointPrice: 100,
-    autoPointPrice: 500,
+    pointPlus: pointPlus,
+    autoPointPlus: autoPointPlus,
+    increasePointPrice: increasePointPrice,
+    autoPointPrice: autoPointPrice,
 
-    deathAmount: 0,
-    deathBase: 1,
-    deathExponent: 1.2,
-    deathBoost: 1,
-    deathCriteria: 10
+    deathAmount: deathAmount,
+    deathBase: deathBase,
+    deathExponent: deathExponent,
+    deathBoost: deathBoost,
+    deathCriteria: deathCriteria
 
     }
     var menu;
@@ -145,7 +157,7 @@ $(document).ready(function(){
     document.addEventListener("keydown", function(event) {
         if (event.ctrlKey && event.which == 83) { // ctrl + s
             event.preventDefault();
-            saveGame();
+               saveGame();
         }
     }, false);
 });
