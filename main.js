@@ -33,7 +33,7 @@ $(document).ready(function(){
     function load() {
         var loadedSave = localStorage.getItem(saveItemName);
         if (loadedSave===null) return;
-        game,JSON.parse(atob(loadedSave));
+        game = JSON.parse(atob(loadedSave));
         changeInventory();
         changeMarket();
     }
