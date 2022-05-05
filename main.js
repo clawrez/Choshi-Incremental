@@ -1,31 +1,18 @@
 $(document).ready(function(){
-    var points = 0;
+    var game ={
+        points: 0,
 
-    var pointPlus = 1;
-    var autoPointPlus = 0;
-    var increasePointPrice = 100;
-    var autoPointPrice = 500;
-
-    var deathAmount = 0;
-    var deathBase = 1;
-    var deathExponent = 1.2;
-    var deathBoost = 1;
-    var deathCriteria = 10;
-
-    var data = {
-    points: points,
-
-    pointPlus: pointPlus,
-    autoPointPlus: autoPointPlus,
-    increasePointPrice: increasePointPrice,
-    autoPointPrice: autoPointPrice,
-
-    deathAmount: deathAmount,
-    deathBase: deathBase,
-    deathExponent: deathExponent,
-    deathBoost: deathBoost,
-    deathCriteria: deathCriteria
-
+        pointsPerClick: 1, // previously pointPlus
+        idlePoints: 0, // previously autoPointPlus
+        pointsPerClickPrice: 100, // previously increasePointPrice
+        idlePointsPrice: 500, // previously autoPointPlusPrice
+        death:{
+            deathAmount: 0,
+            deathBase: 1,
+            deathExponent: 1.2,
+            deathBoost: 1,
+            deathCriteria: 10
+        }
     }
     var menu;
 
@@ -36,14 +23,19 @@ $(document).ready(function(){
         return mantissa.toFixed(2) + "e" + power;
     }
 
-    function saveTheGame(){
-        localStorage.setItem("data", JSON.stringify(data));
+    var saveItemName = "choshi";
+
+    function save(){
+        localStorage.setItem(saveItemName, btoa(JSON.stringify(game)));
     }
 
-    function loadTheGame (){
-        localStorage.getItem("data")
+    function load() {
+        var loadedSave = localStorage.getItem(saveItemName);
+        if (loadedSave===null) return;
+        deepAssign(game,JSON.parse(atob(loadedSave)));
+        changeInventory();
+        changeMarket();
     }
-    window.onload = loadTheGame;
 
     $("#saveBtn").click(function(){
         saveTheGame();
@@ -51,48 +43,48 @@ $(document).ready(function(){
                     
 
     setInterval(function(){ //auto clicker
-        points += autoPointPlus;
+        game.points += game.idlePoints;
         changeInventory();
         changeMarket();
     }, 1000);
     
     function deathPrestige(){ //death (prestige class 1)
-        deathAmount++;
-        deathBase = Math.pow(2, deathAmount);
-        deathBoost = Math.pow(deathBase, deathExponent);
-        points = 0;
-        pointPlus = 1 * deathBoost;
-        autoPointPlus = 0;
-        deathCriteria *= 2;
+        game.death.deathAmount++;
+        game.death.deathBase = Math.pow(2, game.death.deathAmount);
+        game.death.deathBoost = Math.pow(game.death.deathBase, game.death.deathExponent);
+        game.points = 0;
+        game.pointsPerClick = 1 * game.death.deathBoost;
+        game.idlePoints = 0;
+        game.death.deathCriteria *= 2;
     }
 
 
 
     $("#autoAdd").click(function(){
-        if(points < autoPointPrice){
+        if(game.points < game.idlePointsPrice){
             return
         }else{
-        points -= autoPointPrice;
-        autoPointPlus += 2.5*deathBoost;
-        autoPointPrice *= 1.333;
-        changeInventory();
-        changeMarket();}
+            game.points -= game.idlePointsPrice;
+            game.idlePoints += 2.5*game.death.deathBoost;
+            game.idlePointsPrice *= 1.333;
+            changeInventory();
+            changeMarket();}
     });
 
     $("#incAdd").click(function(){
-        if(points < increasePointPrice){
+        if(game.points < game.pointsPerClickPrice){
             return
         }else{
-            points -= increasePointPrice;
-            pointPlus += 1*deathBoost;
-            increasePointPrice *= 1.25;
+            game.points -= game.pointsPerClickPrice;
+            game.pointsPerClick += 1*game.death.deathBoost;
+            game.pointsPerClickPrice *= 1.25;
             changeInventory();
             changeMarket();
         }
     });
 
     $("#die").click(function(){
-        if (autoPointPlus >= deathCriteria && pointPlus >= deathCriteria){
+        if (game.idlePoints >= game.death.deathCriteria && game.pointsPerClick >= game.death.deathCriteria){
             deathPrestige();
         }else{
             return
@@ -100,7 +92,7 @@ $(document).ready(function(){
     });
 
     $("#addToPoints").click(function(){
-        points += pointPlus;
+        game.points += game.pointsPerClick;
         changeInventory();
         changeMarket();
     });
@@ -114,34 +106,34 @@ $(document).ready(function(){
     });
 
     function changeInventory(){
-        $("#pointsValue").html(format(points));
+        $("#pointsValue").html(format(game.points));
 
-        if(points == 1){
+        if(game.points == 1){
             $("#pointsPlural").html("point");
         }else{
             $("#pointsPlural").html("points");
         }
 
-        $("#idleValue").html(format(autoPointPlus));
+        $("#idleValue").html(format(game.idlePoints));
 
-        if(autoPointPlus == 1){
+        if(game.idlePoints == 1){
             $("#idlePlural").html("point");
         }else{
             $("#idlePlural").html("points");
         }
 
-        $("#ppcValue").html(format(pointPlus));
+        $("#ppcValue").html(format(game.pointsPerClick));
 
-        if(pointPlus == 1){
+        if(game.pointsPerClick == 1){
             $("#ppcPlural").html("point");
         }else{
             $("#ppcPlural").html("points");
         }
 
-        $("#deathAmountValue").html(deathAmount);
-        $("#deathBoostValue").html(format(deathBoost));
+        $("#deathAmountValue").html(game.death.deathAmount);
+        $("#deathBoostValue").html(format(game.death.deathBoost));
 
-        if(deathAmount == 1){
+        if(game.death.deathAmount == 1){
             $("#deathPlural").html("death is");
         }else{
             $("#deathPlural").html("deaths are");
@@ -149,9 +141,9 @@ $(document).ready(function(){
     }
 
     function changeMarket(){
-        $("#incAddPrc").html(format(increasePointPrice));
-        $("#autoAddPrc").html(format(autoPointPrice));
-        $("#deathCrit").html(deathCriteria);
+        $("#incAddPrc").html(format(game.pointsPerClickPrice));
+        $("#autoAddPrc").html(format(game.idlePointsPrice));
+        $("#deathCrit").html(game.death.deathCriteria);
     }
 
     function switchMenu(menu){
@@ -160,6 +152,10 @@ $(document).ready(function(){
         return menu;
     }
     
+    window.onload=function () {
+        load();
+    }
+
     document.addEventListener("keydown", function(event) {
         if (event.ctrlKey && event.which == 83) { // ctrl + s
             event.preventDefault();
