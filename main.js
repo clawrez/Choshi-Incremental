@@ -1,19 +1,5 @@
 $(document).ready(function(){
-    var game ={
-        points: 0,
 
-        pointsPerClick: 1, // previously pointPlus
-        idlePoints: 0, // previously autoPointPlus
-        pointsPerClickPrice: 100, // previously increasePointPrice
-        idlePointsPrice: 500, // previously autoPointPlusPrice
-        death:{
-            deathAmount: 0,
-            deathBase: 1,
-            deathExponent: 1.2,
-            deathBoost: 1,
-            deathCriteria: 10
-        }
-    }
     var menu;
 
     function format(amount) {
@@ -224,4 +210,20 @@ $("#saveBtn").click(function(){
 
 window.onload=function () {
     load();
+}
+
+var game ={
+    points: 0,
+
+    pointsPerClick: 1, // previously pointPlus
+    idlePoints: 0, // previously autoPointPlus
+    pointsPerClickPrice: 100, // previously increasePointPrice
+    idlePointsPrice: 500, // previously autoPointPlusPrice
+    death:{
+        deathAmount: 0,
+        deathBase: 1,
+        deathExponent: 1.2,
+        deathBoost: 1,
+        deathCriteria: 10
+    }
 }
