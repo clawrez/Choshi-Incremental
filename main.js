@@ -27,6 +27,7 @@ $(document).ready(function(){
 
     function save(){
         localStorage.setItem(saveItemName, btoa(JSON.stringify(game)));
+        console.log("Saved!" + choshi + "Saved!");
     }
 
     function load() {
