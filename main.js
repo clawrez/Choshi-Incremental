@@ -2,13 +2,6 @@ $(document).ready(function(){
 
     var menu;
 
-    function format(amount) {
-        let power = Math.floor(Math.log10(amount));
-        let mantissa = amount / Math.pow(10, power);
-        if (power < 6) return amount.toFixed(2);
-        return mantissa.toFixed(2) + "e" + power;
-    }
-
 
                     
 
@@ -18,7 +11,7 @@ $(document).ready(function(){
         changeMarket();
     }, 1000);
     
-
+    
 
     function deathPrestige(){ //death (prestige class 1)
         game.death.deathAmount++;
@@ -217,6 +210,13 @@ window.onload=function () {
 setInterval(function(){ // auto save
     save();
 }, 30000);
+
+function format(amount) {
+    let power = Math.floor(Math.log10(amount));
+    let mantissa = amount / Math.pow(10, power);
+    if (power < 6) return amount.toFixed(2);
+    return mantissa.toFixed(2) + "e" + power;
+}
 
 var game ={
     points: 0,
