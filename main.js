@@ -136,7 +136,16 @@ $(document).ready(function(){
         return menu;
     }
     
+    var saveItemName = "choshi";
 
+    function save(){
+        localStorage.setItem(saveItemName, btoa(JSON.stringify(game)));
+        console.log("Saved!" + JSON.stringify(game) + "Saved!");
+    }
+
+    $("#saveBtn").click(function(){
+        save();
+    });
 
     document.addEventListener("keydown", function(event) {
         if (event.ctrlKey && event.which == 83) { // ctrl + s
@@ -146,6 +155,12 @@ $(document).ready(function(){
     }, false);
 });
 
+document.addEventListener("keydown", function(event) {
+    if (event.ctrlKey && event.which == 83) { // ctrl + s
+        event.preventDefault();
+           save();
+    }
+}, false);
 
 var saveItemName = "choshi";
 
@@ -160,6 +175,47 @@ function load() {
     game = JSON.parse(atob(loadedSave));
     changeInventory();
     changeMarket();
+}
+
+function changeInventory(){
+    $("#pointsValue").html(format(game.points));
+
+    if(game.points == 1){
+        $("#pointsPlural").html("point");
+    }else{
+        $("#pointsPlural").html("points");
+    }
+
+    $("#idleValue").html(format(game.idlePoints));
+
+    if(game.idlePoints == 1){
+        $("#idlePlural").html("point");
+    }else{
+        $("#idlePlural").html("points");
+    }
+
+    $("#ppcValue").html(format(game.pointsPerClick));
+
+    if(game.pointsPerClick == 1){
+        $("#ppcPlural").html("point");
+    }else{
+        $("#ppcPlural").html("points");
+    }
+
+    $("#deathAmountValue").html(game.death.deathAmount);
+    $("#deathBoostValue").html(format(game.death.deathBoost));
+
+    if(game.death.deathAmount == 1){
+        $("#deathPlural").html("death is");
+    }else{
+        $("#deathPlural").html("deaths are");
+    }
+}
+
+function changeMarket(){
+    $("#incAddPrc").html(format(game.pointsPerClickPrice));
+    $("#autoAddPrc").html(format(game.idlePointsPrice));
+    $("#deathCrit").html(game.death.deathCriteria);
 }
 
 $("#saveBtn").click(function(){
