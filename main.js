@@ -18,6 +18,8 @@ $(document).ready(function(){
         changeMarket();
     }, 1000);
     
+
+
     function deathPrestige(){ //death (prestige class 1)
         game.death.deathAmount++;
         game.death.deathBase = Math.pow(2, game.death.deathAmount);
@@ -211,6 +213,10 @@ $("#saveBtn").click(function(){
 window.onload=function () {
     load();
 }
+
+setInterval(function(){ // auto save
+    save();
+}, 30000);
 
 var game ={
     points: 0,
