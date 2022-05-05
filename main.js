@@ -1,4 +1,4 @@
-// $(document).ready(function(){
+$(document).ready(function(){
     var game ={
         points: 0,
 
@@ -23,24 +23,7 @@
         return mantissa.toFixed(2) + "e" + power;
     }
 
-    var saveItemName = "choshi";
 
-    function save(){
-        localStorage.setItem(saveItemName, btoa(JSON.stringify(game)));
-        console.log("Saved!" + JSON.stringify(game) + "Saved!");
-    }
-
-    function load() {
-        var loadedSave = localStorage.getItem(saveItemName);
-        if (loadedSave===null) return;
-        game = JSON.parse(atob(loadedSave));
-        changeInventory();
-        changeMarket();
-    }
-
-    $("#saveBtn").click(function(){
-        save();
-    });
                     
 
     setInterval(function(){ //auto clicker
@@ -153,9 +136,7 @@
         return menu;
     }
     
-    window.onload=function () {
-        load();
-    }
+
 
     document.addEventListener("keydown", function(event) {
         if (event.ctrlKey && event.which == 83) { // ctrl + s
@@ -163,4 +144,28 @@
                save();
         }
     }, false);
-// });
+});
+
+
+var saveItemName = "choshi";
+
+function save(){
+    localStorage.setItem(saveItemName, btoa(JSON.stringify(game)));
+    console.log("Saved!" + JSON.stringify(game) + "Saved!");
+}
+
+function load() {
+    var loadedSave = localStorage.getItem(saveItemName);
+    if (loadedSave===null) return;
+    game = JSON.parse(atob(loadedSave));
+    changeInventory();
+    changeMarket();
+}
+
+$("#saveBtn").click(function(){
+    save();
+});
+
+window.onload=function () {
+    load();
+}
