@@ -30,13 +30,7 @@ $(document).ready(function(){
         console.log("Saved!" + JSON.stringify(game) + "Saved!");
     }
 
-    function load() {
-        var loadedSave = localStorage.getItem(saveItemName);
-        if (loadedSave===null) return;
-        game = JSON.parse(atob(loadedSave));
-        changeInventory();
-        changeMarket();
-    }
+
 
     $("#saveBtn").click(function(){
         save();
@@ -153,9 +147,7 @@ $(document).ready(function(){
         return menu;
     }
     
-    window.onload=function () {
-        load();
-    }
+
 
     document.addEventListener("keydown", function(event) {
         if (event.ctrlKey && event.which == 83) { // ctrl + s
@@ -164,3 +156,16 @@ $(document).ready(function(){
         }
     }, false);
 });
+
+function load() {
+    var loadedSave = localStorage.getItem(saveItemName);
+    if (loadedSave===null) return;
+    game = JSON.parse(atob(loadedSave));
+    changeInventory();
+    changeMarket();
+}
+
+window.onload=function () {
+    load();
+}
+
